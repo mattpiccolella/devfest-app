@@ -15,15 +15,15 @@
       <h4>Here's your agenda:</h4>
       <br>
       {% if location %}
-      <p><strong>First Stop: {{location.name}}</strong></p>
+      <p><strong>First Stop: <a href='{{location.website}}' target="_blank">{{location.name}}</a></strong></p>
       <p style="margin-top:-15px;">{{location.address}}</p>
       {% endif %}
       {% if event %}
-      <p><strong>Second Stop: {{event.name}}</strong></p>
+      <p><strong>Second Stop: <a href='{{event.link}}' target="_blank">{{event.name}}</a></strong></p>
       <p style="margin-top: -15px;">{{event.street_address}}</p>
       {% endif %}
       {% if restaurant %}
-      <p><strong>Third Stop: {{restaurant.name}}</strong></p>
+      <p><strong>Third Stop: <a href='{{restaurant.website}}' target="_blank">{{restaurant.name}}</a></strong></p>
       <p style="margin-top:-15px;">{{restaurant.address}}</p>
       {% endif %}
       <div>

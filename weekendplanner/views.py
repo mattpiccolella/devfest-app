@@ -52,6 +52,7 @@ def facebook_login(request):
     f = FacebookAPI(APP_KEY, APP_SECRET, FACEBOOK_REDIRECT)
     access_token = f.get_access_token(code)
     final_access_token = access_token['access_token']
+    request.session['access_token'] = final_access_token
     graph = GraphAPI(final_access_token)
     try:
         me = graph.get('me')
@@ -72,12 +73,18 @@ def profile(request):
         c['first_name'] = request.session['first_name']
         c['last_name'] = request.session['last_name']
         c['events'] = profile_upcoming_events()
+        facebook_user = FacebookUser.objects.filter(facebook_id=request.session['facebook_id'])[0]
+        trips = Trip.objects.filter(user=facebook_user)
+        if (len(trips) > 0):
+            c['trip'] = trips[0]
         return render_to_response('profile.html', c)
     else:
         return redirect("/")
 
 def logout(request):
     del request.session['facebook_id']
+    if "access_token" in request.session:
+        del request.session['access_token']
     del request.session['first_name']
     del request.session['last_name']
     return redirect("/")
@@ -226,15 +233,9 @@ def planner(request):
                 location = Location.objects.filter(reference=request.session['loc'])
                 if (len(location) == 1):
                     loc = location[0]
-                    ny_times_query = NEW_YORK_TIMES_BASE_STRING + "&ll=" + loc.latitude + "," + loc.longitude +"&radius=1000&limit=20"
+                    ny_times_query = NEW_YORK_TIMES_BASE_STRING + "&ll=" + loc.latitude + "," + loc.longitude +"&radius=1000&limit=10"
                     ny_times_results = requests.get(ny_times_query).json()
-                    sub_array = []
-                    if (len(ny_times_results) > 5):
-                        rand_int = random.randint(0,len(ny_times_results) - 5)
-                        sub_array = ny_times_results[rand_int:rand_int + 5]
-                    else:
-                        sub_array = ny_times_results
-                    events = process_nytimes_results(sub_array)
+                    events = process_nytimes_results(ny_times_results)
                     c['events'] = events
                     return render_to_response('event.html',c)
                 return HttpResponse("FUCK")
@@ -363,6 +364,36 @@ def finalize(request):
     else:
         return redirect("/")
 
+def create_event(request):
+    if 'facebook_id' in request.session:
+        c = {}
+        c['facebook_id'] = request.session['facebook_id']
+        c['first_name'] = request.session['first_name']
+        c['last_name'] = request.session['last_name']
+        facebook_id = request.session['facebook_id']
+        facebook_user = FacebookUser.objects.filter(facebook_id=facebook_id)[0]
+        if 'loc' in request.session and 'event' in request.session and 'restaurant' in request.session:
+            location = Location.objects.filter(reference=request.session['loc'])[0]
+            event = Event.objects.filter(event_id=request.session['event'])[0]
+            restaurant = Restaurant.objects.filter(reference=request.session['restaurant'])[0]
+            del request.session['loc']
+            del request.session['event']
+            del request.session['restaurant']
+            graph = GraphAPI(request.session['access_token'])
+            event_name = "Trip to " + location.name
+            description = "We will be going to " + location.name + ". " + "We will then be going to " + event.name + ". Then we will eat at " + restaurant.name +". This event has been created with PlanMyNY."
+            sample_event = graph.post('me/events', params={"name":event_name, "description":description, "location":"New York City","start_time":"2014-02-09T16:00-5:00", "end_time":"2014-02-09T23:00-5:00", "privacy_type":"FRIENDS"})
+            event_id = sample_event['id']
+            c['event_link'] = "http://www.facebook.com/events/" + event_id
+            trip = Trip.create(facebook_user,location,event,restaurant,c['event_link'])
+            trip.save()
+            return render_to_response("success.html", c)
+        else:
+            return redirect("profile/")
+    else:
+        return redirect("/")
+            
+
 def get_coordinates(my_event):
     c={}
     address = my_event.street_address + ", " + my_event.city + ", " + my_event.state
@@ -378,5 +409,7 @@ def get_coordinates(my_event):
         c['lat'] = lat
         c['long'] = lng
         return c
+
+
     
     

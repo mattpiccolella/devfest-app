@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Success{% endblock %}
+
+{% block body %}
+{% include "navbar.html" %}
+<div class="row text-center">
+  <div class="small-12 large-12 columns">
+    <br>
+    <h2>Success! Your event has officially been created.</h2>
+    <h4>Here is a link to your <a href='{{event_link}}' target="_blank">Facebook event.</a></h4>
+    <h4><a href="/profile">Or click here to return to your dashboard</a></h4>
+  </div>
+</div>
+{% endblock %}

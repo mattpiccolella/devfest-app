@@ -6,11 +6,38 @@
 {% include "navbar.html" %}
 
 <div class="row">
-  <div class="small-12 large-12 columns">
+  <div class="small-12 large-6 columns">
     <br>
-    <a href="/planner/">Let's plan an event.</a>
     <br>
     {% include "upcomingevents.html" %}
+  </div>
+  <div class="small-12 large-6 columns">
+    <br>
+    <br>
+    <h3 style="text-align:center;">Upcoming Trips</h3>
+    {% if trip %}
+    {% if trip.location %}
+    <p><strong>First Stop: <a href='{{trip.location.website}}' target="_blank">{{trip.location.name}}</a></strong></p>
+    <p style="margin-top:-15px;">{{trip.location.address}}</p>
+    {% endif %}
+    {% if trip.event %}
+    <p><strong>Second Stop: <a href='{{trip.event.link}}' target="_blank">{{trip.event.name}}</a></strong></p>
+    <p style="margin-top: -15px;">{{trip.event.street_address}}</p>
+    {% endif %}
+    {% if trip.restaurant %}
+    <p><strong>Third Stop: <a href='{{trip.restaurant.website}}' target="_blank">{{trip.restaurant.name}}</a></strong></p>
+    <p style="margin-top:-15px;">{{trip.restaurant.address}}</p>
+    {% endif %}
+    <a href='{{trip.event_link}}' target="_blank">Facebook Event</a>
+    {% else %}
+    <p>We're sorry, but you haven't created a trip yet. Create one now by pressing the button at the bottom of the page.</p>
+    {% endif %}
+  </div>
+</div>
+<div class="row text-center">
+  <div class="centered" style="margin-left:auto; margin-right:auto;">
+    <br>
+    <a href="/planner/" class="button" style="margin-left:auto; margin-right:auto;text-align:center;">Plan a Trip</a>
   </div>
 </div>
 {% endblock %}

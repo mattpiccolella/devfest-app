@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '54.212.151.230']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '54.212.151.230', 'http://planmyny.com']
 
 
 # Application definition

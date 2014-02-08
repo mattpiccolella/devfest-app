@@ -4,13 +4,12 @@
 
 {% block body %}
 {% include "navbar.html" %}
-<div class="row">
+<div class="row text-center">
   <div class="small-12 large-12 columns">
     <br>
-    <h4>Great! Now here are some events happening near there. Pick one!</h4>
-    <a href="/start_over/">Or click here to start over</a>
+    <h4>Here are some events happening near there. Pick one!</h4>
     <div class="panel">
-      <table>
+      <table class="centered">
 	<thead>
 	  <tr>
 	    <th>Event Name</th>
@@ -33,6 +32,7 @@
 	</tbody>
       </table>
     </div>
+    <a href="/start_over/" class="button">Start Over</a>
   </div>
 </div>
 {% endblock %}

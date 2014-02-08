@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^planner/', 'weekendplanner.views.planner', name='planner'),
     url(r'^start_over/', 'weekendplanner.views.start_over', name='start_over'),
     url(r'^finalize/', 'weekendplanner.views.finalize', name='finalize'),
+    url(r'^create_event/', 'weekendplanner.views.create_event', name='create_event')
 )
