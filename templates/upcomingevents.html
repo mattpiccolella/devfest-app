@@ -1,0 +1,21 @@
+<div class="panel">
+  <h1>Upcoming Events</h1>
+  <table>
+    <thead>
+      <tr>
+	<th>Event Name</th>
+	<th>Location</th>
+	<th>Telephone</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+      <tr>
+	<td><a href='{{event.link}}' target="_blank">{{event.name}}</a></td>
+	<td>{{event.location}}</td>
+	<td>{{event.phone_number}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

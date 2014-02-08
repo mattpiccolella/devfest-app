@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Plan my Event{% endblock %}
+{% block body %}
+
+{% include "navbar.html" %}
+
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <br>
+    <h4>Let's plan an event! Click a location or press "Refresh" for more options.</h4>
+    <br>
+    <ul class="small-block-grid-1 medium-block-grid-1 large-block-grid-3">
+      {% for loc in locations %}
+	<li class="centered">
+	  <a href='/profile/?loc={{loc.reference}}'><img class="centered" src='{{loc.photo}}'/></a>
+	  <p>{{loc.name}}, {{loc.address}}</p>
+	</li>
+	{% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+</html>

@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>Sample</title>
+  </head>
+  <body>
+    <h1>{{size}} items</h1>
+    {% for museum in museums %}
+    <h1>{{museum.museum_name}}</h1>
+    <h2>{{museum.museum_address}}</h2>
+    {% endfor %}
+  </body>
+</html>
