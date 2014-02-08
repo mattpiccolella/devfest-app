@@ -68,13 +68,7 @@ def profile(request):
         c['facebook_id'] = request.session['facebook_id']
         c['first_name'] = request.session['first_name']
         c['last_name'] = request.session['last_name']
-        locs = []
-        count = 0
-        while (count < 3):
-            locs.append(get_location())
-            count = count + 1
-        c['locations'] = locs
-        #c['events'] = profile_upcoming_events()
+        c['events'] = profile_upcoming_events()
         return render_to_response('profile.html', c)
     else:
         return redirect("/")
@@ -180,4 +174,59 @@ def get_location():
     photo_link = "https://maps.googleapis.com/maps/api/place/photo?photoreference=" + photo + "&key=" + GOOGLE_API_KEY + "&sensor=false&maxheight=200"
     loc['photo'] = photo_link
     loc['reference'] = location.reference
+    loc['website'] = location.website
     return loc
+
+def planner(request):
+    if 'facebook_id' in request.session:
+        c = {}
+        c['facebook_id'] = request.session['facebook_id']
+        c['first_name'] = request.session['first_name']
+        c['last_name'] = request.session['last_name']
+        data = request.GET.copy()
+        if 'loc' in data:
+            request.session['loc'] = data['loc']
+            if 'event' in request.session:
+                del request.session['event']
+            if 'restaurant' in request.session:
+                del request.session['restaurant']
+            return redirect("/planner/")
+        if 'event' in data:
+            request.session['event'] = data['event']
+            if 'restaurant' in request.session:
+                del request.session['restaurant']
+            if 'loc' in request.session:
+                return HttpResponse(request.session['loc'])
+        if 'restaurant' in data:
+            request.session['restaurant'] = data['restaurant']
+            if 'loc' in request.session:
+                if 'event' in request.session:
+                    return redirect("/finalize/")
+        c['facebook_id'] = request.session['facebook_id']
+        c['first_name'] = request.session['first_name']
+        c['last_name'] = request.session['last_name']
+        if 'loc' in request.session:
+            if 'event' in request.session:
+                # Have location and event, just need restaurant
+                return render_to_response('restaurant.html', c)
+            else:
+                # Have location, need to get event
+                return render_to_response('event.html',c)
+        locs = []
+        count = 0
+        while (count < 3):
+            locs.append(get_location())
+            count = count + 1
+            c['locations'] = locs
+        return render_to_response('location.html', c)
+    else:
+        return redirect("/")
+    
+def start_over(request):
+    if 'loc' in request.session:
+        del request.session['loc']
+    if 'event' in request.session:
+        del request.session['event']
+    if 'restaurant' in request.session:
+        del request.session['restaurant']
+    return redirect("/planner/")

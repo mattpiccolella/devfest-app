@@ -15,5 +15,6 @@ urlpatterns = patterns('',
     url(r'^logout/', 'weekendplanner.views.logout', name='logout'),
     url(r'^populate_database', 'weekendplanner.views.populate_database', name='populate_database'),
     url(r'^places', 'weekendplanner.views.places', name='places'),
-    url(r'^event/', 'weekendplanner.views.event', name='event'),
+    url(r'^planner/', 'weekendplanner.views.planner', name='planner'),
+    url(r'^start_over/', 'weekendplanner.views.start_over', name='start_over'),
 )
