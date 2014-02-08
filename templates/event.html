@@ -4,6 +4,35 @@
 
 {% block body %}
 {% include "navbar.html" %}
-<h1>We got our location already.</h1>
-<a href="/start_over/">Or click here to start over</a>
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <br>
+    <h4>Great! Now here are some events happening near there. Pick one!</h4>
+    <a href="/start_over/">Or click here to start over</a>
+    <div class="panel">
+      <table>
+	<thead>
+	  <tr>
+	    <th>Event Name</th>
+	    <th>Location</th>
+	    <th>Telephone</th>
+	    <th>More Info</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for event in events %}
+	  <a href="http://www.google.com">
+	  <tr>
+	    <td><a href='/planner/?event={{event.id}}'>{{event.name}}</a></td>
+	    <td>{{event.location}}</td>
+	    <td>{{event.phone_number}}</td>
+	    <td><a href='{{event.link}}' target='_blank'>More Info</a></td>
+	  </tr>
+	  </a>
+	  {% endfor %}
+	</tbody>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}

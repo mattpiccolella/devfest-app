@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Restaurants{% endblock %}
+
+{% block body %}
+{% include "navbar.html" %}
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <br>
+    <h4>Now pick where you'd like to eat.</h4>
+    <a href="/start_over/">Or click here to start over</a>
+    <ul class="small-block-grid-1 medium-block-grid-1 large-block-grid-3">
+      {% for restaurant in restaurants %}
+      <li>
+	<a href='/planner/?restaurant={{restaurant.reference}}'><img src='{{restaurant.photo}}'/></a>
+	<p>{{restaurant.name}}, {{restaurant.address}}</p>
+	<a href='{{restaurant.website}}' target="_blank">Learn More</a>
+      </li>
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}

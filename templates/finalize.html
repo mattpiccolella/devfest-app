@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Finalize my Event{% endblock %}
+<style>
+  .less_margin {
+  margin-top: -10px;
+  }
+</style>
+{% block body %}
+{% include "navbar.html" %}
+<div class="row" style="padding-top:30px;">
+  <div class="small-12 large-6 columns">
+    <div class="panel">
+      <br>
+      <h4>Here's your agenda:</h4>
+      <br>
+      {% if location %}
+      <p><strong>First Stop: {{location.name}}</strong></p>
+      <p style="margin-top:-15px;">{{location.address}}</p>
+      {% endif %}
+      {% if event %}
+      <p><strong>Second Stop: {{event.name}}</strong></p>
+      <p style="margin-top: -15px;">{{event.street_address}}</p>
+      {% endif %}
+      {% if restaurant %}
+      <p><strong>Third Stop: {{restaurant.name}}</strong></p>
+      <p style="margin-top:-15px;">{{restaurant.address}}</p>
+      {% endif %}
+      <div>
+	<a href="/create_event/" class="button" style="margin-left: auto; margin-right:auto;">Create my Event</a>
+      </div>
+      <a href="/start_over/">Or click here to start over</a>
+    </div>
+  </div>
+  <div class="small-12 large-6 columns">
+    <img src='{{map}}'/>
+  </div>
+</div>
+{% endblock %}

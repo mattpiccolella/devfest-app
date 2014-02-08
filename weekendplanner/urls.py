@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^places', 'weekendplanner.views.places', name='places'),
     url(r'^planner/', 'weekendplanner.views.planner', name='planner'),
     url(r'^start_over/', 'weekendplanner.views.start_over', name='start_over'),
+    url(r'^finalize/', 'weekendplanner.views.finalize', name='finalize'),
 )

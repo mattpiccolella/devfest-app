@@ -37,12 +37,28 @@ class Restaurant(models.Model):
     ranking = models.CharField(max_length=10)
     photo_reference = models.CharField(max_length=500)
     reference = models.CharField(max_length=500)
-    website = models.CharField(max_length=100)
-    food_type = models.CharField(max_length=100)
+    website = models.CharField(max_length=300)
     price = models.CharField(max_length=20)
     def __unicode__(self):
         return self.name + " " + self.address
     @classmethod
-    def create(cls,name,latitude,longitude,address,ranking, photo_reference,reference,website,food_type,price):
-        location = cls(name=name,latitude=latitude,longitude=longitude,address=address,ranking=ranking,photo_reference=photo_reference,reference=reference,website=website,food_type=food_type,price=price)
+    def create(cls,name,latitude,longitude,address,ranking, photo_reference,reference,website,price):
+        location = cls(name=name,latitude=latitude,longitude=longitude,address=address,ranking=ranking,photo_reference=photo_reference,reference=reference,website=website,price=price)
         return location
+
+class Event(models.Model):
+    name = models.CharField(max_length=100)
+    event_id = models.CharField(max_length=20)
+    link = models.CharField(max_length=300)
+    location = models.CharField(max_length=100)
+    telephone = models.CharField(max_length=20)
+    street_address = models.CharField(max_length=100)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=20)
+    postal_code = models.CharField(max_length=10)
+    def __unicode__(self):
+        return self.name + " " + self.location
+    @classmethod
+    def create(cls,name,event_id,link,location,telephone,street_address,city,state,postal_code):
+        event = cls(name=name,event_id=event_id,link=link,location=location,telephone=telephone,street_address=street_address,city=city,state=state,postal_code=postal_code)
+        return event
