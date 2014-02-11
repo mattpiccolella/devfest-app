@@ -20,11 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'n+8o4xj0b)b=%io#c7c8!e41@u3@4tp7h#a9b$2-dsc(76d78r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '54.212.151.230', 'http://planmyny.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '54.212.151.230', '.planmyny.com']
 
 
 # Application definition
