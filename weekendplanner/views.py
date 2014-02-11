@@ -13,7 +13,7 @@ APP_SECRET = "e3c87fa61e6d9b587a63268623049ce6"
 FACEBOOK_REDIRECT = "http://www.planmyny.com/facebook_login"
 
 NY_TIMES_API_KEY = "ac8e622d58c2753ea21809d358c146cb:9:68789349"
-GOOGLE_API_KEY = "AIzaSyDrqySSU7dHb2o38gOH9RjPp4oJkkE7KYQ"
+GOOGLE_API_KEY = "AIzaSyDhoZ2Yyii_wvZaWSqUu4BilsVAfJHZIzk"
 
 GEOCODING_STRING_COLUMBIA = "http://maps.googleapis.com/maps/api/geocode/json?address=2920+Broadway,+New+York,+NY&sensor=false"
 GEOCODING_BASE_STRING = "http://maps.googleapis.com/maps/api/geocode/json?address="
