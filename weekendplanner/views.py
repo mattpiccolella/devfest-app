@@ -6,14 +6,21 @@ import requests, facebook
 from facebook import FacebookAPI, GraphAPI, FacebookClientError
 from weekendplanner.app.models import *
 from string import replace
-import json, random
+import json, random, socket
 
-APP_KEY = "613925892012742"
-APP_SECRET = "e3c87fa61e6d9b587a63268623049ce6"
-FACEBOOK_REDIRECT = "http://www.planmyny.com/facebook_login"
+DEVELOPMENT_HOST = "ip-10-235-41-15"
+PRODUCTION_HOST = "ip-10-232-38-80"
+if socket.gethostname() == PRODUCTION_HOST:
+    APP_KEY = "613925892012742"
+    APP_SECRET = "e3c87fa61e6d9b587a63268623049ce6"
+    FACEBOOK_REDIRECT = "http://www.planmyny.com/facebook_login"
+elif socket.gethostname() == DEVELOPMENT_HOST:
+    APP_KEY = "784182548275833"
+    APP_SECRET = "21e84350de3860a87019c127f500d50d"
+    FACEBOOK_REDIRECT = "http://ec2-54-203-65-146.us-west-2.compute.amazonaws.com/facebook_login"
 
 NY_TIMES_API_KEY = "ac8e622d58c2753ea21809d358c146cb:9:68789349"
-GOOGLE_API_KEY = "AIzaSyDrqySSU7dHb2o38gOH9RjPp4oJkkE7KYQ"
+GOOGLE_API_KEY = "AIzaSyDhoZ2Yyii_wvZaWSqUu4BilsVAfJHZIzk"
 
 GEOCODING_STRING_COLUMBIA = "http://maps.googleapis.com/maps/api/geocode/json?address=2920+Broadway,+New+York,+NY&sensor=false"
 GEOCODING_BASE_STRING = "http://maps.googleapis.com/maps/api/geocode/json?address="

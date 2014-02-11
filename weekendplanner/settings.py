@@ -20,11 +20,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'n+8o4xj0b)b=%io#c7c8!e41@u3@4tp7h#a9b$2-dsc(76d78r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+import socket
+DEVELOPMENT_HOST = "ip-10-235-41-15"
+PRODUCTION_HOST = "ip-10-232-38-80"
+if socket.gethostname() == PRODUCTION_HOST:
+    DEBUG = False
+elif socket.gethostname() == DEVELOPMENT_HOST:
+    DEBUG = True
+else:
+    DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '54.212.151.230', '.planmyny.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '54.212.151.230', '.planmyny.com', '.54.203.65.146']
 
 
 # Application definition
