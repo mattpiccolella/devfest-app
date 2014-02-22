@@ -135,26 +135,23 @@ def get_orbit_data():
     park_search = Location.objects.filter(location_type="park").exclude(photo_reference="N/A").exclude(website="N/A")
     art_search = Location.objects.filter(location_type="art_gallery").exclude(photo_reference="N/A").exclude(website="N/A")
     night_club_search = Location.objects.filter(location_type="night_club").exclude(photo_reference="N/A").exclude(website="N/A")
-    objects = []
-    random_id = random.randint(0, len(museum_search) - 1)
-    objects.append(museum_search[random_id])
-    random_id = random.randint(0, len(park_search) - 1)
-    objects.append(park_search[random_id])
-    random_id = random.randint(0, len(art_search) - 1)
-    objects.append(art_search[random_id])
-    random_id = random.randint(0, len(night_club_search) - 1)
-    objects.append(night_club_search[random_id])
+    round_1 = ["Washington Square Park","The Metropolitan Museum of Art","Intrepid Sea, Air & Space Museum", "Le Poisson Rouge"]
+    round_2 = ["Central Park", "Rubin Museum of Art", "Center for Architecture", "Museum of the Moving Image"]
+    my_places = round_1 + round_2
     places = []
-    for place in objects:
-        name = place.name
-        address = place.address
-        photo = place.photo_reference
+    random_numbers = random.sample(xrange(0,7),4)
+    for x in random_numbers:        
+        place = my_places[x]
+        myplace = Location.objects.filter(name=place)[0]
+        name = myplace.name
+        address = myplace.address
+        photo = myplace.photo_reference
         my_place = {}
         my_place["name"] = name
         my_place["address"] = address
         photo_link = "https://maps.googleapis.com/maps/api/place/photo?photo_reference=" + photo + "&key=" + GOOGLE_API_KEY + "&sensor=false&maxheight=300"
         my_place["photo"] = photo_link
-        my_place["website"] = place.website
+        my_place["website"] = myplace.website
         places.append(my_place)
     return places
 
@@ -416,7 +413,3 @@ def get_coordinates(my_event):
         c['lat'] = lat
         c['long'] = lng
         return c
-
-
-    
-    
