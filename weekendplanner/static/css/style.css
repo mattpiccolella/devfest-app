@@ -2,3 +2,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+body {
+    background-image: url('/static/old_moon.png');
+    background-repeat: repeat;
+}
